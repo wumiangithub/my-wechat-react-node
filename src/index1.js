@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import {createStore,applyMiddleware,compose} from 'redux'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
-import './index.css'
+
 import reducers from './reducer'
-import './config';
-import Authroute from './component/authroute/authroute'
-import axios from 'axios'
-
-
+import './index.css';
+import './config'
+import Dashboard from './Dashboard';
+import Auth from './Auth';
 import * as serviceWorker from './serviceWorker';
 import {
     BrowserRouter,
@@ -19,11 +18,6 @@ import {
     Switch
 } from 'react-router-dom'
 
-
-import Login from './container/login/login'
-import Register from './container/register/register'
-
-
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension(): ()=>{} ;
 const store = createStore(reducers,compose(
     applyMiddleware(thunk),
@@ -31,9 +25,12 @@ const store = createStore(reducers,compose(
 ));  //创建了一个store
 
 
-function Boss(){
-     return <h2>BOSS页面</h2>
-}
+//手动链接方式
+// function render (){
+//     ReactDOM.render(<App store={store} addSync={addSync} add={add} cut={cut}/>, document.getElementById('root'));
+// }
+// render();
+// store.subscribe(render)
 
 
 
@@ -43,12 +40,13 @@ ReactDOM.render(
     (
         <Provider store={store}>
             <BrowserRouter>
-               <div>
-                   <Authroute></Authroute>
-                   <Route path='/boss' component={Boss}></Route>
-                   <Route path='/login' component={Login}></Route>
-                   <Route path='/register' component={Register}></Route>
-               </div>
+
+                <Switch>
+                    <Route path="/login"   component={Auth}></Route>
+                    <Route path="/dashboard" component={Dashboard}></Route>
+                    <Redirect to='/dashboard'></Redirect>
+                </Switch>
+
             </BrowserRouter>
         </Provider>
     ),
@@ -56,13 +54,6 @@ ReactDOM.render(
 )
 
 
-axios.get('/user/list',).then(res=>{
-    if(res.status == 200 && res.data.code === 0){
-
-    }else{
-
-    }
-})
 
 
 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+如果使用create-react-app  脚手架
+npm  run eject  报错的话，是因为有.gitignore文件而没有关联git
+解决：
+git init
+git add .
+git commit -m 'init'
+搞定
+
+npm  run eject  这是个坑 引入ant-mobile一堆引用问题
+发现包有问题，可以删除node_modules包  重新npm  install
+-->
+
+
+<!--
+1.  npm install express --save     基于node.js的web框架
+express 写接口
+
+const express = require('express');
+const app = express();
+app.get('/',function(req,res){
+    res.send('<h1>Hello world1</h1>')
+})
+app.get('/data',function(req,res){
+    res.json({name:333})
+})
+app.listen(9093,function(){
+    console.log('Node app start at port 9093')
+})
+
+cd server文件夹下面   运行
+npm run server.js    或者  node server.js
+-->
+
+
+<!--
+2.  npm install  nodemon -g         保持热更新
+nodemon server.js
+-->
+
+
+<!--
+3.安装mongodb非关系型数据库
+mac: brew   install  mongodb
+windows：官网下载的是一个包
+-->
+
+
+
+<!--
+4
+Mongoose是在node.js异步环境下对mongodb进行便捷操作的对象模型工具
+安装mongoose
+npm install mongoose
+
+
+const mongoose = require('mongoose')
+const DB_URL = 'mongodb://localhost:27017/imooc'
+mongoose.connect(DB_URL)
+mongoose.connection.on('connected',function () {
+    console.log('mongo connect success')
+})
+-->
+
+<!--
+5
+npm install antd-mobile -S    蚂蚁金服出的精品UI组件库
+npm i babel-plugin-import --save-dev  按需加载样式
+
+package.json  修改babel配置
+"babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+       [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ]
+    ]
+  },
+
+
+
+-->
+
+
+<!--
+6.
+npm install redux -S
+-->
+
+
+
+<!--
+7.
+npm install redux-thunk -S    处理redux异步的
+使用applyMiddleware开启thunk中间件
+action可以返回函数，使用dispatch提交action  之前action返回的是带type的对象
+
+
+import {createStore,applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+import {counter,add,cut,addSync} from './store'
+const store = createStore(counter,applyMiddleware(thunk));  //创建了一个store
+-->
+
+
+<!--
+8.
+chrome 安装redux 扩展程序
+新建store的时候判断window.devToolsExtension
+使用compose结合thunk和window.devToolsExtension
+调试窗的redux选项卡，实时看到state
+
+
+import {createStore,applyMiddleware,compose} from 'redux'
+import thunk from 'redux-thunk'
+import {counter,add,cut,addSync} from './store'
+const reduxDevtools = window.devToolsExtension?window.devToolsExtension:()=>{};
+const store = createStore(counter,compose(
+    applyMiddleware(thunk),
+    reduxDevtools
+));  //创建了一个store
+-->
+
+
+<!--
+9.
+使用react-redux   让react和redux能够优雅的链接
+npm install react-redux --save
+忘记subscribe,记住reducer,action和dispatch即可
+react-redux提供Provider和connect两个接口来链接
+
+
+react-redux具体使用
+Provider组件在应用最外层，传入store即可，只用一次
+Connect负责从外部获取组件需要的参数
+Connect可以用装饰器的方式来写
+
+
+-->
+
+
+<!--
+10.
+Connect怎么用装饰器的方式来写
+npm i babel-plugin-transform-decorators-legacy --save-dev
+"babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ]
+    ]
+  },
+
+
+-->
+
+
+</body>
+</html>

@@ -6,11 +6,14 @@ import 'antd-mobile/dist/antd-mobile.css'
 import {counter,add,cut,addSync} from './store'
 
 
+const mapStatetoProps = (state) => {
+    return {num:state}
+}
 
-@connect(
-    state=>(state.counter),
-    {add,cut,addSync}
-)
+const actionCreators = {counter,add,cut,addSync}
+
+// App=connect(mapStatetoProps,actionCreators)(App)
+@connect(mapStatetoProps,actionCreators)
 
 
 class App extends React.Component {

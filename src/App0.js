@@ -1,42 +1,30 @@
 
 import React from 'react'
-import {connect} from 'react-redux'
 import {Button,List} from 'antd-mobile'
 import 'antd-mobile/dist/antd-mobile.css'
-import {counter,add,cut,addSync} from './store'
-
-
-
-@connect(
-    state=>(state.counter),
-    {add,cut,addSync}
-)
 
 
 class App extends React.Component {
-    render() {
-        const add = this.props.add;
-        const cut = this.props.cut;
-        const addSync = this.props.addSync;
-        const num = this.props.num;
-        let boss = '李云龙'
-        return (
-            <div>
-                <h2>独立团，团长{boss}</h2>
-                <h3>现在有机枪{num}把</h3>
-                <Button onClick={add}>添加机枪</Button>
-                <Button onClick={cut}>上交机枪</Button>
-                <Button onClick={addSync}>过两天上交机枪</Button>
-                <一营 老大='张大喵'></一营>
-                <骑兵连 老大='孙德胜'></骑兵连>
-            </div>
-        )
-    }
+  render() {
+    const store = this.props.store;
+    const add = this.props.add;
+    const cut = this.props.cut;
+    const addSync = this.props.addSync;
+    const num = store.getState();
+    let boss = '李云龙'
+    return (
+        <div>
+          <h2>独立团，团长{boss}</h2>
+          <h3>现在有机枪{num}把</h3>
+          <Button onClick={()=>{store.dispatch(add())}}>添加机枪</Button>
+          <Button onClick={()=>{store.dispatch(cut())}}>上交机枪</Button>
+          <Button onClick={()=>{store.dispatch(addSync())}}>过两天上交机枪</Button>
+          <一营 老大='张大喵'></一营>
+          <骑兵连 老大='孙德胜'></骑兵连>
+        </div>
+    )
+  }
 }
-
-
-
-
 
 
 class 一营 extends React.Component{
