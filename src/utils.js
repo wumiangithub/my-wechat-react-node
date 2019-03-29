@@ -4,6 +4,7 @@ export function getRedirectPath({type,avatar}) {
 
     if(!avatar){
         url += 'info'
+        alert('头像不能为空')
     }
 
     return url

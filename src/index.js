@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import './index.css'
 import reducers from './reducer'
 import './config';
-import Authroute from './component/authroute/authroute'
+import AuthRoute from './component/authroute/authroute'
 import axios from 'axios'
 
 
@@ -19,9 +19,12 @@ import {
     Switch
 } from 'react-router-dom'
 
-
+import Dashboard from './component/dashboard/dashboard'
 import Login from './container/login/login'
 import Register from './container/register/register'
+
+import BossInfo from './container/bossinfo/bossinfo'
+import GeniusInfo from './container/geniusinfo/geniusinfo'
 
 
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension(): ()=>{} ;
@@ -37,32 +40,37 @@ function Boss(){
 
 
 
-
 //使用Provider
 ReactDOM.render(
     (
         <Provider store={store}>
             <BrowserRouter>
                <div>
-                   <Authroute></Authroute>
-                   <Route path='/boss' component={Boss}></Route>
-                   <Route path='/login' component={Login}></Route>
-                   <Route path='/register' component={Register}></Route>
+                   <AuthRoute></AuthRoute>
+                   {/*Switch中的Route只要命中一个就渲染，其他的就不管了*/}
+                   <Switch>
+                       {/*<Route path='/boss' component={Boss}></Route>*/}
+                       <Route path='/bossinfo' component={BossInfo}></Route>
+                       <Route path='/geniusinfo' component={GeniusInfo}></Route>
+                       <Route path='/login' component={Login}></Route>
+                       <Route path='/register' component={Register}></Route>
+                       <Route component={Dashboard}></Route>
+                   </Switch>
                </div>
             </BrowserRouter>
         </Provider>
     ),
     document.getElementById('root')
-)
+);
 
 
-axios.get('/user/list',).then(res=>{
-    if(res.status == 200 && res.data.code === 0){
-
-    }else{
-
-    }
-})
+// axios.get('/user/list',).then(res=>{
+//     if(res.status == 200 && res.data.code === 0){
+//
+//     }else{
+//
+//     }
+// })
 
 
 

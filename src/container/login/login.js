@@ -13,14 +13,16 @@ import {Redirect} from "react-router-dom";
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props.login)
         this.state = {
-            user: '',
+            user: 'gggg',
             pwd: '',
             type: 'genius',//boss
 
-        }
-        this.register = this.register.bind(this)
-        this.handleLogin = this.handleLogin.bind(this)
+        };
+        this.register = this.register.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        console.log(this.props)
     }
 
     register() {
@@ -48,6 +50,7 @@ class Login extends React.Component {
                     <List>
                         <InputItem
                             onChange={(v) => this.handleChange('user', v)}
+                            type='password'
                         >用户名</InputItem>
                         <InputItem
                             onChange={(v) => this.handleChange('pwd', v)}

@@ -4,6 +4,8 @@ import { combineReducers } from 'redux'
 import { counter } from './store'
 import { auth } from './Auth.redux'
 import { user } from './redux/user.redux'
+import { chatuser } from './redux/chatuser.redux'
 
-export default combineReducers({counter,auth,user})
+
+export default combineReducers({counter,auth,user,chatuser})
 

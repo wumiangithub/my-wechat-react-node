@@ -28,7 +28,41 @@ const cookieParser = require('cookie-parser');
 3.  引入加密方法
 npm  install utility
 const utils = require("utility")
+加密：
 pwd:utils.md5(pwd)
+
+解密：
+User.findOne({user,pwd:utils.md5(pwd)},{pwd:0},function (err,doc) {
+        if(!doc){
+            return res.json({code:1,msg:'用户名或者密码错误'})
+        }
+        res.cookie("userid",doc._id);
+        return res.json({code:0,data:doc})
+})
+
+设置cookie
+res.cookie("userid",doc._id);
+会在response Headers中添加  这么一条
+set-cookie: userid=j%3A%225c93343b70e25b0e00c2c4f7%22; Path=/
 -->
+
+
+<!--
+4.属性验证
+npm install prop-types --save
+
+-->
+
+<!--
+5
+引入withRouter  提供路由属性 方法
+import {withRouter} from 'react-router-dom'
+@withRouter
+
+const {pathname} = this.props.location;
+this.props.history.push(v.path)//withRouter  提供路由信息
+-->
+
+
 </body>
 </html>
