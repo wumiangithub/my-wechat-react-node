@@ -9,26 +9,19 @@ const cookieParser = require('cookie-parser');
 const server = require('http').Server(app);//http 自带的
 const io = require('socket.io')(server);
 const userRouter = require('./user');
-const model = require('./model');
-const User = model.getModel('user');
-const Chat = model.getModel('chat');
+
 
 //io 是全局的请求     socket是当前的请求
 io.on('connection',function (socket) {
     // console.log('user login')
     //接收当前请求数据
     socket.on('sendmsg',function (data) {
-        const {from,to,msg} = data;
-        const chatid = [from,to].sort().join('_');
-        console.log('服务端接受信息')
-        Chat.create({chatid,from,to,content:msg},function (err,doc) {
-            //发送一个全局的请求
-            // io.emit('recvmsg',data.text+1)
+        console.log(data);
+        //发送一个全局的请求
+        // io.emit('recvmsg',data.text+1)
 
-            //
-            io.emit('recvmsg',doc)
-            // socket.emit('recvmsg',doc)
-        })
+        //
+        socket.emit('recvmsg',data)
     })
 });
 

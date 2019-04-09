@@ -4,14 +4,25 @@ import NavLinkBar from '../../component/navlink/navlink'
 import {Switch,Route} from 'react-router-dom'
 import {connect} from "react-redux";
 import Boss from '../../component/boss/boss'
+import Genius from '../../component/genius/genius'
+import User from '../../component/user/user'
+import {getMsgList, recvMsg} from '../../redux/chat.redux'
 @connect(
     state => state,
+    {getMsgList, recvMsg}
 )
 
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        if(!this.props.chat.chatmsg.length){
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
     }
 
 
@@ -25,7 +36,7 @@ class Dashboard extends React.Component {
                 icon: 'boss',
                 title: '牛人列表',
                 component: Boss,
-                hide: user.type == 'boss'
+                hide: user.type == 'genius'
             },
             {
                 path: '/genius',
@@ -33,7 +44,7 @@ class Dashboard extends React.Component {
                 icon: 'job',
                 title: 'BOSS列表',
                 component: Genius,
-                hide: user.type == 'genius'
+                hide: user.type == 'boss'
             },
             {
                 path: '/msg',
@@ -52,7 +63,7 @@ class Dashboard extends React.Component {
         ];
         return (
             <div>
-                <NavBar className='fixd-header' mode='dard'>{navList.find(v => v.path == pathname).title}</NavBar>
+                <NavBar className='fixd-header' mode='dard'>{navList.find(v => v.path == pathname) ? navList.find(v => v.path == pathname).title : ''}</NavBar>
                 <div style={{marginTop: 45}}>
                     <Switch>
                         {
@@ -71,17 +82,12 @@ class Dashboard extends React.Component {
 
 
 
-function Genius() {
-    return <h2>牛人列表</h2>
-}
 
 function Msg() {
     return <h2>msg</h2>
 }
 
 
-function User() {
-    return <h2>个人中心</h2>
-}
+
 
 export default Dashboard

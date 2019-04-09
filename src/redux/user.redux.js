@@ -6,6 +6,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOAD_DATA = 'LOAD_DATA'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
+const LOGOUT = 'LOGOUT'
 
 const initState = {
     redirectTo: "",
@@ -24,6 +25,9 @@ export function user(state = initState, action={}) {
             return {...state, msg: "", redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
         case ERROR_MSG:
             return {...state, msg: action.msg, isAuth: true}
+        case LOGOUT:
+            console.log(111)
+            return {...initState, redirectTo:"/login"};
         case LOGIN_SUCCESS:
             return {...state, msg: "", redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
         case AUTH_SUCCESS:
@@ -39,6 +43,10 @@ export function user(state = initState, action={}) {
 function authSuccess(obj) {
     const {pwd,...data} = obj;
     return {type:AUTH_SUCCESS,payload:data}
+}
+
+export function logoutSubmit() {
+    return {type:LOGOUT}
 }
 
 function registerSuccess(data) {

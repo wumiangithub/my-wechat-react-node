@@ -65,6 +65,7 @@ class BossInfo extends React.Component {
                     </TextareaItem>
                     <Button
                         onClick={()=>{
+                            console.log(777)
                             this.props.update(this.state)
                         }}
                         type="primary">保存</Button>

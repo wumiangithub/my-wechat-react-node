@@ -2,6 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const model = require('./model');
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 const utils = require("utility");
 const _filter = {"pwd":0,"__v":0};
 
@@ -14,6 +15,25 @@ Router.get('/list',function (req,res) {
         return res.json({code:0,data:doc})
     })
 })
+
+
+Router.get('/getmsglist',function (req,res) {
+    // Chat.remove({},function (e,d) {});//删除所有
+    const user = req.cookies.userid;
+    // {"$or":[{from:user},{to:user}]}  查询多个条件
+    User.find({},function (e,userdoc) {
+        let users = {};
+        userdoc.forEach(v=>{
+            users[v._id] = {name:v.user,avatar:v.avatar}
+        });
+
+        Chat.find({"$or":[{from:user},{to:user}]},function (err,doc) {
+            if(!err){
+                return res.json({code:0,msgs:doc,users:users})
+            }
+        })
+    })
+});
 
 
 Router.post('/update',function (req,res) {

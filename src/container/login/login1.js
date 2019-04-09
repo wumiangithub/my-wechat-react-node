@@ -4,11 +4,11 @@ import {List, InputItem, Radio, WingBlank, WhiteSpace, Button} from "antd-mobile
 import {connect} from "react-redux";
 import {login, register} from "../../redux/user.redux";
 import {Redirect} from "react-router-dom";
-import imoocForm from '../../component/imoocForm/imooc-form'
 
 
 
-// 属性代理  反向继承  高阶组件
+
+// 属性继承  反向代理  高阶组件
 // function WrapperHello(Comp) {
 //
 //     // class WrapComp extends Comp{
@@ -19,6 +19,7 @@ import imoocForm from '../../component/imoocForm/imooc-form'
 //     // 			return <Comp></Comp>
 //     // 		}
 //     // }
+//
 //     // class WrapComp extends React.Component {
 //     //
 //     //     render() {
@@ -40,18 +41,17 @@ import imoocForm from '../../component/imoocForm/imooc-form'
     {login}
 )
 
-//继承imoocForm 高阶组件写法
-@imoocForm
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        // console.log(this.props.login)
-        // this.state = {
-        //     user: 'gggg',
-        //     pwd: '',
-        //     type: 'genius',//boss
-        //
-        // };
+        console.log(this.props.login)
+        this.state = {
+            user: 'gggg',
+            pwd: '',
+            type: 'genius',//boss
+
+        };
         this.register = this.register.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         console.log(this.props)
@@ -61,14 +61,14 @@ class Login extends React.Component {
         this.props.history.push('register')
     }
 
-    // handleChange(key, val) {
-    //     this.setState({
-    //         [key]: val
-    //     })
-    // }
+    handleChange(key, val) {
+        this.setState({
+            [key]: val
+        })
+    }
 
     handleLogin() {
-        this.props.login(this.props.state)
+        this.props.login(this.state)
     }
 
     render() {
@@ -81,10 +81,10 @@ class Login extends React.Component {
                     {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
                     <List>
                         <InputItem
-                            onChange={(v) => this.props.handleChange('user', v)}
+                            onChange={(v) => this.handleChange('user', v)}
                         >用户名</InputItem>
                         <InputItem
-                            onChange={(v) => this.props.handleChange('pwd', v)}
+                            onChange={(v) => this.handleChange('pwd', v)}
                             type='password'
                         >密码</InputItem>
                     </List>
