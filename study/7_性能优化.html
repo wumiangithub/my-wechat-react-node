@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<!--
+服务端渲染首页dom
+-->
+
+
+<!--
+//每次render都会执行一次bind，然而每次setState又都会执行render
+onClick={this.handleClick.bind(this)}
+
+
+//每次render都要重新生成一个函数
+onClick={()=>this.handleClick()}
+
+
+
+//推荐  在constructor中bind函数this
+this.handleClick = this.handleClick.bind(this)
+-->
+
+<!--
+//这样每次render也会生成一个新的对象
+style={{width:66}}
+
+//推荐
+style={this.state.width}
+-->
+
+
+<!--
+//不推荐直接像子组件传递所有数据
+<Demo {...this.state}></Demo>
+
+
+//推荐 只传递子组件所需要的数据
+<Demo title={this.state.title}></Demo>
+-->
+
+
+<!--
+定制shouldComponentUpdate(nextProps,nextState){}  不需要渲染的时候，返回false
+-->
+
+<!--
+如果组件只是根据你传进来的值渲染，那么可以用
+class Demo extends React.PureComponent{}
+帮助你定制shouldComponentUpdate
+-->
+
+
+<!--
+immutable
+npm install immutable --save
+
+优点
+1、减少内存使用
+2、并发安全
+3、降级项目复杂度
+4、便于比较复杂数据、定制shouldComponentUpdate方便
+5、时间旅行功能方便
+6、函数式编程
+
+缺点
+1、学习成本
+2、库的大小
+3、对现有项目入侵太严重
+
+精简的 seamless-immutable
+-->
+
+
+<!--
+reselect
+优化redux  会做一些缓存
+-->
+
+
+<!--
+遍历数组的key
+
+-->
+</body>
+</html>

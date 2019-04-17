@@ -42,6 +42,11 @@ code {
     bottom: 0;
     right: 0;
     left: 0;
+    background: #fff;
+}
+
+#chat-page{
+    padding-bottom: 200px;
 }
 
 #chat-page .chat-me .am-list-extra{
@@ -51,4 +56,16 @@ code {
 #chat-page .chat-me .am-list-content{
     padding-right: 15px;
     text-align: right;
+}
+
+#chat-page .am-grid-icon{
+    display: none;
+}
+
+#chat-page .am-grid-text{
+    margin-top: 0;
+}
+
+.am-grid{
+    background: #fff;
 }

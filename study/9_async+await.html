@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--
+优化异步代码
+
+async+await配合使用  await必须在async内部
+async和await，比起星号和yield，语义更清楚了。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。
+
+
+比最早的处理异步用回调好
+比es6的Generator好
+
+返回的是一个promise对象，接着可以用.then方法
+而Generator返回值是 Iterator 对象
+-->
+
+<script>
+    function timeout(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    async function asyncPrint(value, ms) {
+        await timeout(ms);
+        console.log(value);//5秒后输出
+    }
+
+    asyncPrint('hello world', 5000);
+</script>
+</body>
+</html>
